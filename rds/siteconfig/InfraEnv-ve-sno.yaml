@@ -1,0 +1,24 @@
+apiVersion: agent-install.openshift.io/v1beta1
+kind: InfraEnv
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+  name: "{{ .Cluster.ClusterName }}"
+  namespace: "{{ .Cluster.ClusterName }}"
+spec:
+  clusterRef:
+    name: "{{ .Cluster.ClusterName }}"
+    namespace: "{{ .Cluster.ClusterName }}"
+  kernelArguments:
+    - operation: append 
+      value: audit=0 
+    - operation: append
+      value: trace=1
+  sshAuthorizedKey: "{{ .Site.SshPublicKey }}"
+  pullSecretRef:
+    name: "{{ .Site.PullSecretRef.Name }}"
+  ignitionConfigOverride: "{{ .Cluster.IgnitionConfigOverride }}"
+  nmStateConfigLabelSelector:
+    matchLabels:
+      nmstate-label: "{{ .Cluster.ClusterName }}"
+  additionalNTPSources: "{{ .Cluster.AdditionalNTPSources }}"
