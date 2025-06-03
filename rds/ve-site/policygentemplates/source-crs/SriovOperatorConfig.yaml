@@ -1,0 +1,12 @@
+apiVersion: sriovnetwork.openshift.io/v1
+kind: SriovOperatorConfig
+metadata:
+  name: default
+  namespace: openshift-sriov-network-operator
+  annotations:
+    ran.openshift.io/ztp-deploy-wave: "10"
+spec:
+  enableInjector: false
+  enableOperatorWebhook: false
+  logLevel: 0
+  disableDrain: true
